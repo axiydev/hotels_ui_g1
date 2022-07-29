@@ -71,6 +71,8 @@ class _LessonPageState extends State<LessonPage> {
     return Scaffold(
       body: CustomScrollView(
         controller: _controller,
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         slivers: [
           SliverAppBar(
             backgroundColor: Colors.white,
