@@ -53,11 +53,11 @@ class _LessonPageState extends State<LessonPage> {
   void didChangeDependencies() {
     _size = MediaQuery.of(context).size;
     _hotelList.addAll([
-      Hotel(name: "Hotel 1", image: AppImages.hotelOne),
-      Hotel(name: "Hotel 1", image: AppImages.hotelTwo),
-      Hotel(name: "Hotel 1", image: AppImages.hotelThree),
-      Hotel(name: "Hotel 1", image: AppImages.hotelFour),
-      Hotel(name: "Hotel 1", image: AppImages.hotelFive),
+      Hotel(name: "Hotel 1", image: AppImages.hotelOne, isFavourite: true),
+      Hotel(name: "Hotel 1", image: AppImages.hotelTwo, isFavourite: false),
+      Hotel(name: "Hotel 1", image: AppImages.hotelThree, isFavourite: true),
+      Hotel(name: "Hotel 1", image: AppImages.hotelFour, isFavourite: false),
+      Hotel(name: "Hotel 1", image: AppImages.hotelFive, isFavourite: false),
     ]);
     super.didChangeDependencies();
   }
@@ -264,25 +264,52 @@ class _LessonPageState extends State<LessonPage> {
               borderRadius: BorderRadius.circular(18),
               image: DecorationImage(
                   image: AssetImage(hotel!.image!), fit: BoxFit.cover)),
-          child: Container(
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
-              gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    Colors.black.withOpacity(0.7),
-                    Colors.black.withOpacity(0.4),
-                    Colors.black.withOpacity(0.2),
-                    Colors.black.withOpacity(0.1),
-                  ]),
-            ),
-            alignment: Alignment.bottomLeft,
-            child: Text(
-              hotel.name!,
-              style: AppTextStyles.medium.copyWith(fontSize: 18),
-            ),
+          child: ClipRRect(
+            child: hotel.isFavourite!
+                ? Banner(
+                    message: 'Top',
+                    location: BannerLocation.bottomEnd,
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: [
+                              Colors.black.withOpacity(0.7),
+                              Colors.black.withOpacity(0.4),
+                              Colors.black.withOpacity(0.2),
+                              Colors.black.withOpacity(0.1),
+                            ]),
+                      ),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        hotel.name!,
+                        style: AppTextStyles.medium.copyWith(fontSize: 18),
+                      ),
+                    ),
+                  )
+                : Container(
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.7),
+                            Colors.black.withOpacity(0.4),
+                            Colors.black.withOpacity(0.2),
+                            Colors.black.withOpacity(0.1),
+                          ]),
+                    ),
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      hotel.name!,
+                      style: AppTextStyles.medium.copyWith(fontSize: 18),
+                    ),
+                  ),
           ),
         ),
       ),
